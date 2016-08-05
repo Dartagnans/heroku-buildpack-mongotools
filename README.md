@@ -9,7 +9,7 @@ in the bin folder
 
 Ensure your Heroku app is wired to use this buildpack:
 
-    heroku buildpacks:set https://github.com/zph/heroku-buildpack-mongotools.git
+    heroku buildpacks:add https://github.com/zph/heroku-buildpack-mongotools.git
 
 ## Credits
 
