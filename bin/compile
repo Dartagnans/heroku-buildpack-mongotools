@@ -31,63 +31,19 @@ if [[ $arch == "x86_64" ]]; then
 fi
 plat=$(tolower $(uname))-$arch
 
-if [[ -d "$env_dir" ]]; then
-    for key in GOVERSION GOFILE GOURL; do
-        if [[ -f "$env_dir/$key" ]]; then
-            export "$key=$(cat "$env_dir/$key")"
-        fi
-    done
-fi
-
-ver=go${GOVERSION:-1.6.2}
-file=${GOFILE:-$ver.$plat.tar.gz}
-url=${GOURL:-https://storage.googleapis.com/golang/$file}
-
 if [[ -e $build/bin && ! -d $build/bin ]]; then
     echo >&2 " !     File bin exists and is not a directory."
     exit 1
 fi
 
-if [[ -d $cache/$ver/go ]]; then
-    echo "-----> Using $ver"
-else
-    rm -rf $cache/go* # be sure not to build up cruft
-    mkdir -p $cache/$ver
-    (
-        cd $cache/$ver
-        echo -n "-----> Installing $ver..."
-        curl -s --show-error $url | tar zxf -
-        echo " done"
-    )
-fi
+header "Downloading mongo-mools"
+FILE="mongodb-org-tools_3.2.11_amd64.deb"
+curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse/binary-${arch}/${FILE}" > "${cache}/${FILE}"
 
-export GOROOT=$cache/$ver/go
-PATH=$GOROOT/bin:$PATH
-
-header "Cloning mongo-mools"
-if [[ ! -d "$cache/mongo-tools" ]];then
-  git clone https://github.com/mongodb/mongo-tools.git $cache/mongo-tools 2>&1 | indent
-  cd $cache/mongo-tools && mkdir $cache/mongo-tools/bin
-else
-  cd $cache/mongo-tools && git pull
-fi
-
-. ./set_gopath.sh
-
-header "Building mongo-mools"
-tools=(mongodump mongorestore mongoimport)
-for t in "${tools[@]}";do
-  cmd="go build -o bin/$t $t/main/$t.go"
-  printf "Building $cmd\n" | indent
-  $cmd
-done
-
-header "Intalling mongo-mools to $build/bin"
-cp $cache/mongo-tools/bin/mongo* $build/bin/
-
-ls $build/bin/mongo* | tr " " "\n" | indent
+header "Installing mongo-mools"
+dpkg -i "${cache}/${FILE}"
 
 header "Cleaning up"
-rm -rf $cache/mongo-tools/bin/
+rm -rf "${cache:?}/$FILE"
 
 header "Mongo Tools Buildpack Complete"
