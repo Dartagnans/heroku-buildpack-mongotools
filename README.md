@@ -9,7 +9,12 @@ in the bin folder
 
 Ensure your Heroku app is wired to use this buildpack:
 
-    heroku buildpacks:add https://github.com/zph/heroku-buildpack-mongotools.git
+    heroku buildpacks:set https://github.com/zph/heroku-buildpack-mongotools.git#v3.2.11
+
+Mongo Tools are pulled down from deb package and unpacked for this distribution.
+
+The ref at end of buildpack url is for the appropriate branch. Right now it is configured only for 3.2.11.
+Pull requests welcome for other versions patterned off of branch: v3.2.11.
 
 ## Credits
 
