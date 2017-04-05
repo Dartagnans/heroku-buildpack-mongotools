@@ -45,8 +45,11 @@ curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse
 header "Installing mongo-mools"
 cd "${MONGOCACHE}"
 # tar xvf $FILE works on darwin, on linux it must be "ar vx"
-ar vx "${FILE}"
-tar xvf "data.tar.xz"
+header "Decompressing mongo-mools deb"
+ar vx "${FILE}" | indent
+
+header "Decompressing data.tar.gz"
+tar xvf "data.tar.xz" | indent
 
 declare -a tools=("mongodump" "mongorestore")
 
