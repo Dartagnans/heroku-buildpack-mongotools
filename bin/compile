@@ -38,12 +38,20 @@ fi
 
 header "Downloading mongo-mools"
 FILE="mongodb-org-tools_3.2.11_amd64.deb"
-curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse/binary-${arch}/${FILE}" > "${cache}/${FILE}"
+MONGOCACHE="${cache:?}/mongo-tools"
+OUTPUT="$MONGOCACHE/${FILE}"
+curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse/binary-${arch}/${FILE}" > "$OUTPUT"
 
 header "Installing mongo-mools"
-sudo dpkg -i "${cache}/${FILE}"
+cd "${MONGOCACHE}"
+tar xvf "${FILE}"
+tar xvf "data.tar.xz"
+
+for tool in echo mongodump mongorestore;do
+  cp "usr/bin/$tool" "$build/bin/$tool"
+done
 
 header "Cleaning up"
-rm -rf "${cache:?}/$FILE"
+rm -rf "$MONGOCACHE"
 
 header "Mongo Tools Buildpack Complete"
