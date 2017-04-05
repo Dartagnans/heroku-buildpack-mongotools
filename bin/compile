@@ -39,6 +39,10 @@ fi
 header "Downloading mongo-mools"
 FILE="mongodb-org-tools_3.2.11_amd64.deb"
 MONGOCACHE="${cache:?}/mongo-tools"
+if [[ ! -d "$MONGOCACHE" ]];then
+  mkdir "$MONGOCACHE"
+fi
+
 OUTPUT="$MONGOCACHE/${FILE}"
 curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse/binary-${arch}/${FILE}" > "$OUTPUT"
 
