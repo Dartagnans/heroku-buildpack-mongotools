@@ -48,7 +48,10 @@ cd "${MONGOCACHE}"
 ar vx "${FILE}"
 tar xvf "data.tar.xz"
 
-for tool in echo mongodump mongorestore;do
+declare -a tools=("mongodump" "mongorestore")
+
+for tool in "${tools[@]}"
+do
   cp "usr/bin/$tool" "$build/bin/$tool"
   chmod +x "$build/bin/$tool"
 done
