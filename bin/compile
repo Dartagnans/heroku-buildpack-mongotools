@@ -37,16 +37,17 @@ if [[ -e $build/bin && ! -d $build/bin ]]; then
 fi
 
 header "Downloading mongo-mools"
-FILE="mongodb-org-tools_3.2.11_amd64.deb"
+FILE="mongodb-database-tools_100.0.0_amd64.deb"
+MONGO_TOOLS_VERSION="4.3"
 MONGOCACHE="${cache:?}/mongo-tools"
 if [[ ! -d "$MONGOCACHE" ]];then
   mkdir "$MONGOCACHE"
 fi
 
 OUTPUT="$MONGOCACHE/${FILE}"
-curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/3.2/multiverse/binary-${arch}/${FILE}" > "$OUTPUT"
+curl "http://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org/${MONGO_TOOLS_VERSION}/multiverse/binary-${arch}/${FILE}" > "$OUTPUT"
 
-header "Installing mongo-mools"
+header "Installing mongo-tools"
 cd "${MONGOCACHE}"
 # tar xvf $FILE works on darwin, on linux it must be "ar vx"
 header "Decompressing mongo-mools deb"
