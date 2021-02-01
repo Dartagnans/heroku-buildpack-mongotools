@@ -56,7 +56,7 @@ ar vx "${FILE}" | indent
 header "Decompressing data.tar.gz"
 tar xvf "data.tar.xz" | indent
 
-declare -a tools=("mongodump" "mongorestore")
+declare -a tools=("mongodump" "mongorestore" "mongoimport" "mongoexport")
 
 for tool in "${tools[@]}"
 do
