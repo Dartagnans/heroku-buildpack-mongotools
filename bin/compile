@@ -37,7 +37,7 @@ if [[ -e $build/bin && ! -d $build/bin ]]; then
 fi
 
 header "Downloading mongo-mools"
-FILE="mongodb-database-tools_100.0.0_amd64.deb"
+FILE="mongodb-database-tools_100.3.0_amd64.deb"
 MONGO_TOOLS_VERSION="4.3"
 MONGOCACHE="${cache:?}/mongo-tools"
 if [[ ! -d "$MONGOCACHE" ]];then
