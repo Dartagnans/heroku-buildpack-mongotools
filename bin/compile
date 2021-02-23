@@ -55,13 +55,13 @@ ar vx "${FILE}" | indent
 
 header "Decompressing data.tar.gz"
 tar xvf "data.tar.xz" | indent
-cd ./usr
+cd ./usr/bin
 ls -la
 declare -a tools=("mongodump" "mongorestore" "mongoimport" "mongoexport")
 
 for tool in "${tools[@]}"
 do
-  cp "./usr/bin/$tool" "$build/bin/$tool"
+  cp "./bin/$tool" "$build/bin/$tool"
   chmod +x "$build/bin/$tool"
 done
 
