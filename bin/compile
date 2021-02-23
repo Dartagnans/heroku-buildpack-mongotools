@@ -59,6 +59,7 @@ cd ./usr/bin
 ls -la
 declare -a tools=("mongodump" "mongorestore" "mongoimport" "mongoexport")
 
+mkdir "$build/bin"
 for tool in "${tools[@]}"
 do
   cp "./$tool" "$build/bin/$tool"
