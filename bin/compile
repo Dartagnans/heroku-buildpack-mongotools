@@ -60,7 +60,7 @@ declare -a tools=("mongodump" "mongorestore" "mongoimport" "mongoexport")
 
 for tool in "${tools[@]}"
 do
-  cp "usr/bin/$tool" "$build/bin/$tool"
+  cp "./usr/bin/$tool" "$build/bin/$tool"
   chmod +x "$build/bin/$tool"
 done
 
