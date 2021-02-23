@@ -55,6 +55,7 @@ ar vx "${FILE}" | indent
 
 header "Decompressing data.tar.gz"
 tar xvf "data.tar.xz" | indent
+cd ./usr
 ls -la
 declare -a tools=("mongodump" "mongorestore" "mongoimport" "mongoexport")
 
